@@ -15,9 +15,14 @@ import { Textarea } from "@/components/ui/textarea";
 
 const AddNewInterview = () => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [jobPosition,setJobPosition]=useState()
-  const [jobDesc,setJobDesc]=useState()
-  const [jobExperience,setJobExperience]=useState()
+  const [jobPosition, setJobPosition] = useState();
+  const [jobDesc, setJobDesc] = useState();
+  const [jobExperience, setJobExperience] = useState();
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log(jobPosition, jobDesc, jobExperience);
+  };
   return (
     <div>
       <div
@@ -34,7 +39,7 @@ const AddNewInterview = () => {
               Tell us more about your job interviewing
             </DialogTitle>
             <DialogDescription>
-              <form>
+              <form onSubmit={onSubmit}>
                 <div>
                   <h2>
                     Add Details about your job position/role, Job description
@@ -42,19 +47,37 @@ const AddNewInterview = () => {
                   </h2>
                   <div className="mt-7 my-3">
                     <label>Job Role/Job Position</label>
-                    <Input placeholder="Ex. Full Stack Developer" required/>
+                    <Input
+                      placeholder="Ex. Full Stack Developer"
+                      required
+                      onChange={(event) => setJobPosition(event.target.value)}
+                    />
                   </div>
                   <div className="my-3">
                     <label>Job Description/ Teck Stack (In Short)</label>
-                    <Textarea placeholder="Ex. React, Angular, Node JS, MySQL etc. " />
+                    <Textarea
+                      placeholder="Ex. React, Angular, Node JS, MySQL etc. "
+                      required
+                      onChange={(event) => setJobDesc(event.target.value)}
+                    />
                   </div>
                   <div className="my-3">
                     <label>Years of Experience</label>
-                    <Input placeholder="Ex. 3" type="number" max="50" required />
+                    <Input
+                      placeholder="Ex. 3"
+                      type="number"
+                      max="100"
+                      required
+                      onChange={(event) => setJobExperience(event.target.value)}
+                    />
                   </div>
                 </div>
                 <div className="flex gap-5 justify-end">
-                  <Button type="button" variant="ghost" onClick={() => setOpenDialog(false)}>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setOpenDialog(false)}
+                  >
                     Cancel
                   </Button>
                   <Button type="submit">Start Interview</Button>
