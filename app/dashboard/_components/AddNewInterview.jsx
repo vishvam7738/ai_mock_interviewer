@@ -12,16 +12,39 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { chatSession } from "@/utils/GeminiAIModel";
+import { LoaderCircle } from "lucide-react";
 
 const AddNewInterview = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [jobPosition, setJobPosition] = useState();
   const [jobDesc, setJobDesc] = useState();
   const [jobExperience, setJobExperience] = useState();
+  const [loading, setLoading] = useState(false);
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+  const onSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
     console.log(jobPosition, jobDesc, jobExperience);
+
+    const InputPrompt =
+      "Job Position: " +
+      jobPosition +
+      ", Job Description: " +
+      jobDesc +
+      ", Years of Experience:" +
+      jobExperience +
+      ", Depends on this information please give me " +
+      process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
+      " Interview question with Answered in Json Format, Give Question and Answered as field in JSONF";
+
+    const result = await chatSession.sendMessage(InputPrompt);
+    // const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
+    const MockJsonResp = result.response.text().replace(/```json|```/g, '');
+
+
+    console.log(JSON.parse(MockJsonResp));
+    setLoading(false);
   };
   return (
     <div>
@@ -80,7 +103,16 @@ const AddNewInterview = () => {
                   >
                     Cancel
                   </Button>
-                  <Button type="submit">Start Interview</Button>
+                  <Button type="submit" disabled={loading}>
+                    {loading ? (
+                      <>
+                        <LoaderCircle className="animate-spin" />
+                        'Generating from AI'
+                      </>
+                    ) : (
+                      "Start Interview"
+                    )}
+                  </Button>
                 </div>
               </form>
             </DialogDescription>
