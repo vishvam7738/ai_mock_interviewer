@@ -48,8 +48,11 @@ const AddNewInterview = () => {
       " Interview question with Answered in Json Format, Give Question and Answered as field in JSONF";
 
     const result = await chatSession.sendMessage(InputPrompt);
-    const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
+    // const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
     // const MockJsonResp = result.response.text().replace(/```json|```/g, '');
+    const MockJsonResp = result.response.text().replace(/```json|```/g, '').trim();
+
+    // console.log(MockJsonResp)
 
 
     console.log(JSON.parse(MockJsonResp));
