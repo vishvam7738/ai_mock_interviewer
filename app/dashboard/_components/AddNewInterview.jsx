@@ -19,6 +19,7 @@ import { MockInterviw } from "@/utils/schema";
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 
 const AddNewInterview = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -27,6 +28,7 @@ const AddNewInterview = () => {
   const [jobExperience, setJobExperience] = useState();
   const [loading, setLoading] = useState(false);
   const [JsonResponse,setJsonResponse]=useState([])
+  const router=useRouter();
   const {user}=useUser()
 
   const onSubmit = async (e) => {
@@ -46,8 +48,8 @@ const AddNewInterview = () => {
       " Interview question with Answered in Json Format, Give Question and Answered as field in JSONF";
 
     const result = await chatSession.sendMessage(InputPrompt);
-    // const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
-    const MockJsonResp = result.response.text().replace(/```json|```/g, '');
+    const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
+    // const MockJsonResp = result.response.text().replace(/```json|```/g, '');
 
 
     console.log(JSON.parse(MockJsonResp));
@@ -68,6 +70,7 @@ const AddNewInterview = () => {
     console.log("Inserted ID: ", resp)
     if(resp){
       setOpenDialog(false)
+      router.push('/dashboard/interview/'+resp[0]?.mockId)
     }
   }
   else{
