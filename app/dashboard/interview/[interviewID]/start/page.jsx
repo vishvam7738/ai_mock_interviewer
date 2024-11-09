@@ -4,6 +4,7 @@ import { MockInterviw } from '@/utils/schema';
 import { eq } from 'drizzle-orm';
 import React, { useEffect, useState } from 'react'
 import QuestionsSection from './_components/QuestionsSection';
+import RecordAnswerSection from './_components/RecordAnswerSection';
 
 const StartInterview = ({params}) => {
     const [interviewData,setInterviewData]=useState();
@@ -26,11 +27,13 @@ const StartInterview = ({params}) => {
       };
   return (
     <div>
-      <div className='grid grid-cols-1 md:grid-cols-2'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
             <QuestionsSection
             mockInterviewQuestion={mockInterviewQuestion}
             activeQuestionIndex={activeQuestionIndex}
             />
+
+            <RecordAnswerSection/>
       </div>
     </div>
   )
