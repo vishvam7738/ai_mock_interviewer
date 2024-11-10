@@ -48,8 +48,8 @@ const RecordAnswerSection = () => {
       onClick={isRecording?stopSpeechToText:startSpeechToText}
       >
         {isRecording ? (
-          <h2>
-            <Mic /> 'Recording....'
+          <h2 className="text-red-600 flex gap-2">
+            <Mic />Stop Recording
           </h2>
         ) : (
           "Record Answer"
@@ -65,6 +65,8 @@ const RecordAnswerSection = () => {
         ))}
         {interimResult && <li>{interimResult}</li>}
       </ul> */}
+
+      <Button onClick={()=>console.log(userAnswer)}> Show User Answer</Button>
     </div>
   );
 };
