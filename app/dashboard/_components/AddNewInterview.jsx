@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { chatSession } from "@/utils/GeminiAIModel";
 import { LoaderCircle } from "lucide-react";
 import { db } from "@/utils/db";
-import { MockInterviw } from "@/utils/schema";
+import { MockInterview } from "@/utils/schema";
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
@@ -45,7 +45,7 @@ const AddNewInterview = () => {
       jobExperience +
       ", Depends on this information please give me " +
       process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
-      " Interview question with Answered in Json Format, Give Question and Answered as field in JSONF";
+      " Interview question with Answered in Json Format, Give Question and Answered as field in JSON";
 
     const result = await chatSession.sendMessage(InputPrompt);
     // const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
@@ -59,7 +59,7 @@ const AddNewInterview = () => {
     setJsonResponse(MockJsonResp);
 
     if(MockJsonResp){
-    const resp=await db.insert(MockInterviw)
+    const resp=await db.insert(MockInterview)
     .values({
       mockId:uuidv4(),
       jsonMockResp:MockJsonResp,
@@ -68,7 +68,7 @@ const AddNewInterview = () => {
       jobExperience:jobExperience,
       createdBy:user?.primaryEmailAddress?.emailAddress,
       createdAt:moment().format('DD-MM-yyyy')
-    }).returning({mockId:MockInterviw.mockId})
+    }).returning({mockId:MockInterview.mockId})
 
     console.log("Inserted ID: ", resp)
     if(resp){

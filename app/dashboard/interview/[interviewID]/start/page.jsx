@@ -1,6 +1,6 @@
 "use client";
 import { db } from "@/utils/db";
-import { MockInterviw } from "@/utils/schema";
+import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 import React, { useEffect, useState, use } from "react";
 import QuestionsSection from "./_components/QuestionsSection";
@@ -21,8 +21,8 @@ const StartInterview = ({ params }) => {
   const GetInterviewDetails = async () => {
     const result = await db
       .select()
-      .from(MockInterviw)
-      .where(eq(MockInterviw.mockId, unwrappedParams.interviewID)); // Use unwrappedParams
+      .from(MockInterview)
+      .where(eq(MockInterview.mockId, unwrappedParams.interviewID)); // Use unwrappedParams
 
     const jsonMockResp = JSON.parse(result[0].jsonMockResp);
     console.log(jsonMockResp);
