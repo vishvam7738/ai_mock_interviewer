@@ -56,6 +56,8 @@ const RecordAnswerSection = ({
   const UpdateUserAnswer = async () => {
     console.log(userAnswer);
     setLoading(true);
+    // console.log("Correct Answer:", mockInterviewQuestion[activeQuestionIndex]?.answer);
+
     const feedbackPrompt =
       "Question:" +
       mockInterviewQuestion[activeQuestionIndex]?.Question +
@@ -84,6 +86,7 @@ const RecordAnswerSection = ({
       userEmail: user?.primaryEmailAddress?.emailAddress,
       createdAt: moment().format("DD-MM-yyyy"),
     });
+    
 
     if (resp) {
       toast("User Answer recorded successfully");
