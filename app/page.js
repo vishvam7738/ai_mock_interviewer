@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Header from "./dashboard/_components/Header";
 import { AtomIcon, Edit, Share2 } from "lucide-react";
+import { FaLinkedin, FaGithub, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+
 
 export default function Home() {
   return (
@@ -11,7 +13,7 @@ export default function Home() {
       <Header />
       <section className=" z-50">
         <div className="py-8 px-4 mt-14 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-          
+
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Your Personal AI Interview Coach</h1>
           <p className="mb-8 mt-4 text-lg font-normal text-gray-600 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Double your chances of landing that job offer
 
@@ -21,7 +23,7 @@ export default function Home() {
               Get Started
               <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
             </a>
-           
+
           </div>
           <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
             <span className="font-semibold text-gray-400 uppercase">FEATURED IN</span>
@@ -119,6 +121,48 @@ export default function Home() {
           </a>
         </div>
       </section>
+      <footer className="py-4 text-center text-gray-700">
+        <p className="mb-4 mt-4 text-base font-normal text-gray-600 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
+          Made with ♡ by <span className="text-gray-900">Vishvam</span>
+        </p>
+        <p className="mb-8 mt-4 text-base font-normal text-gray-600 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400 flex justify-center items-center">
+          Let's Connect:
+          <a
+            href="https://www.linkedin.com/in/vishvamagarwal/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-2 text-gray-700"
+          >
+            <FaLinkedin size={20} />
+          </a>
+          <a
+            href="https://github.com/vishvam7738"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-2 text-gray-700"
+          >
+            <FaGithub size={20} />
+          </a>
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-2 text-gray-700"
+          >
+            <FaInstagram size={20} />
+          </a>
+          <a
+            href="https://wa.me/9045880678"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mx-2 text-gray-700"
+          >
+            <FaWhatsapp size={20} />
+          </a>
+
+        </p>
+      </footer>
+
     </div>
 
 
