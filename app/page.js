@@ -73,7 +73,7 @@ export default function Home() {
           >
             <AtomIcon className='h-8 w-8' />
 
-            <h2 className="mt-4 text-xl font-bold text-black">Write promot for your form</h2>
+            <h2 className="mt-4 text-xl font-bold text-black">Write prompt for your form</h2>
 
             <p className="mt-1 text-sm text-gray-600">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ut quo possimus adipisci
@@ -121,17 +121,17 @@ export default function Home() {
           </a>
         </div>
       </section>
-      <footer className="py-4 text-center text-gray-700">
-        <p className="mb-4 mt-4 text-base font-normal text-gray-600 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
+      <footer className="mt-16 py-4 text-center text-gray-700">
+        <p className="mb-2 mt-4 text-base font-normal text-gray-600 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400">
           Made with ♡ by <span className="text-gray-900">Vishvam</span>
         </p>
-        <p className="mb-8 mt-4 text-base font-normal text-gray-600 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400 flex justify-center items-center">
+        <p className="mb-8 text-base font-normal text-gray-600 lg:text-lg sm:px-16 xl:px-48 dark:text-gray-400 flex justify-center items-center">
           Let's Connect:
           <a
             href="https://www.linkedin.com/in/vishvamagarwal/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-2 text-gray-700"
+            className="mx-2 text-gray-700 hover:text-blue-600 hover:scale-110 transition-all duration-300"
           >
             <FaLinkedin size={20} />
           </a>
@@ -139,7 +139,7 @@ export default function Home() {
             href="https://github.com/vishvam7738"
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-2 text-gray-700"
+            className="mx-2 text-gray-700 hover:text-black hover:scale-110 transition-all duration-300"
           >
             <FaGithub size={20} />
           </a>
@@ -147,7 +147,7 @@ export default function Home() {
             href="https://www.instagram.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-2 text-gray-700"
+            className="mx-2 text-gray-700 hover:text-pink-500 hover:scale-110 transition-all duration-300"
           >
             <FaInstagram size={20} />
           </a>
@@ -155,13 +155,13 @@ export default function Home() {
             href="https://wa.me/9045880678"
             target="_blank"
             rel="noopener noreferrer"
-            className="mx-2 text-gray-700"
+            className="mx-2 text-gray-700 hover:text-green-500 hover:scale-110 transition-all duration-300"
           >
             <FaWhatsapp size={20} />
           </a>
-
         </p>
       </footer>
+
 
     </div>
 
