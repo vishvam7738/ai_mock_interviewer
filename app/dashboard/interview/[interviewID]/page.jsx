@@ -7,30 +7,32 @@ import { Lightbulb, WebcamIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
+import { useParams } from 'next/navigation';
 
-const Interview = ({ params }) => {
-  //   const [interviewData, setInterviewData] = useState();
+const Interview = () => {
+  const params = useParams(); // Directly use useParams() without React.use
   const [interviewData, setInterviewData] = useState({});
-
   const [webCamEnabled, setWebCamEnabled] = useState();
 
   useEffect(() => {
     console.log(params.interviewID);
     GetInterviewDetails();
-  }, []);
+  }, [params]);
+
   const GetInterviewDetails = async () => {
     const result = await db
       .select()
       .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
+      .where(eq(MockInterview.mockId, params.interviewID)); // Use params.interviewID here
 
     setInterviewData(result[0]);
   };
+
   return (
-    <div className="my-10 ">
+    <div className="my-10">
       <h2 className="font-bold text-2xl">Let's Get Started</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="flex flex-col my-5 gap-5 ">
+        <div className="flex flex-col my-5 gap-5">
           <div className="flex flex-col p-5 rounded-lg border gap-5">
             <h2 className="text-lg">
               <strong>Job Role/Job Position: </strong>
@@ -80,8 +82,8 @@ const Interview = ({ params }) => {
         </div>
       </div>
       <div className="flex justify-end items-end">
-        <Link href={'/dashboard/interview/'+params.interviewID+'/start'}>
-        <Button>Start Interview</Button>
+        <Link href={'/dashboard/interview/' + params.interviewID + '/start'}>
+          <Button>Start Interview</Button>
         </Link>
       </div>
     </div>
