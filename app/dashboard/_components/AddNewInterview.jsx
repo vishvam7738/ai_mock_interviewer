@@ -7,7 +7,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,51 +26,70 @@ const AddNewInterview = () => {
   const [jobDesc, setJobDesc] = useState();
   const [jobExperience, setJobExperience] = useState();
   const [loading, setLoading] = useState(false);
-  const [JsonResponse,setJsonResponse]=useState([])
-  const router=useRouter();
-  const {user}=useUser()
+  const [JsonResponse, setJsonResponse] = useState([]);
+  const router = useRouter();
+  const { user } = useUser();
 
   const onSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
     console.log(jobPosition, jobDesc, jobExperience);
 
-    const InputPrompt="Job position: "+jobPosition+", Job Description: "+jobDesc+", Years of Experience : "+jobExperience+" , Depends on Job Position, Job Description & Years of Experience give us "+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+" Interview question along with Answer in JSON format, Give us question and answer field on JSON"
+    const InputPrompt =
+      "Job Position: " +
+      jobPosition +
+      ", Job Description: " +
+      jobDesc +
+      ", Years of Experience:" +
+      jobExperience +
+      ", Depends on this information please give me " +
+      process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT +
+      " Interview question with Answered in Json Format, Give Question and Answered as field in JSON";
 
-    const result = await chatSession.sendMessage(InputPrompt);
-    // const MockJsonResp = (result.response.text()).replace('```json', '').replace('```', '');
-    // const MockJsonResp = result.response.text().replace(/```json|```/g, '');
-    const MockJsonResp = result.response.text().replace(/```json|```/g, '').trim();
+    try {
+      const result = await chatSession.sendMessage(InputPrompt);
+      const rawText = await result.response.text();
+      const MockJsonResp = rawText.replace(/```json|```/g, '').trim();
 
-    // console.log(MockJsonResp)
+      console.log("Processed JSON response:", MockJsonResp);
 
+      let parsedData;
+      try {
+        parsedData = JSON.parse(MockJsonResp);
+      } catch (parseError) {
+        console.error("JSON parsing error:", parseError);
+        console.error("Invalid JSON data:", MockJsonResp);
+        setLoading(false);
+        alert("Failed to parse the JSON response. Please try again.");
+        return;
+      }
 
-    console.log(JSON.parse(MockJsonResp));
-    setJsonResponse(MockJsonResp);
+      setJsonResponse(parsedData); // Only set if JSON is valid
 
-    if(MockJsonResp){
-    const resp=await db.insert(MockInterview)
-    .values({
-      mockId:uuidv4(),
-      jsonMockResp:MockJsonResp,
-      jobPosition:jobPosition,
-      jobDesc:jobDesc,
-      jobExperience:jobExperience,
-      createdBy:user?.primaryEmailAddress?.emailAddress,
-      createdAt:moment().format('DD-MM-yyyy')
-    }).returning({mockId:MockInterview.mockId})
+      const resp = await db.insert(MockInterview)
+        .values({
+          mockId: uuidv4(),
+          jsonMockResp: MockJsonResp,
+          jobPosition: jobPosition,
+          jobDesc: jobDesc,
+          jobExperience: jobExperience,
+          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format('DD-MM-yyyy')
+        })
+        .returning({ mockId: MockInterview.mockId });
 
-    console.log("Inserted ID: ", resp)
-    if(resp){
-      setOpenDialog(false)
-      router.push('/dashboard/interview/'+resp[0]?.mockId)
+      console.log("Inserted ID: ", resp);
+      if (resp) {
+        setOpenDialog(false);
+        router.push('/dashboard/interview/' + resp[0]?.mockId);
+      }
+    } catch (error) {
+      console.error("Error during submission:", error);
     }
-  }
-  else{
-    console.log("ERROR")
-  }
+
     setLoading(false);
   };
+
   return (
     <div>
       <div
@@ -103,9 +121,9 @@ const AddNewInterview = () => {
                     />
                   </div>
                   <div className="my-3">
-                    <label>Job Description/ Teck Stack (In Short)</label>
+                    <label>Job Description/ Tech Stack (In Short)</label>
                     <Textarea
-                      placeholder="Ex. React, Angular, Node JS, MySQL etc. "
+                      placeholder="Ex. React, Angular, Node JS, MySQL etc."
                       required
                       onChange={(event) => setJobDesc(event.target.value)}
                     />
